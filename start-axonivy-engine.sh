@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /opt/AxonIvyEngine5.1
+cd /opt/AxonIvyEngine6
 
 # Build the database config
 [ -z "$AXONIVY_SERVER_DB_URL" ] && export AXONIVY_SERVER_DB_URL=jdbc:postgresql://${DB_PORT_5432_TCP_ADDR}:${DB_PORT_5432_TCP_PORT}/AxonIvySystemDatabase
