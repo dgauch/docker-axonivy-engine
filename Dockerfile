@@ -7,9 +7,9 @@ RUN sudo apt-get install -y wget
 RUN sudo apt-get install -y unzip 
 
 # Download and extract Axon.ivy Engine
-RUN sudo wget http://download.axonivy.com/6.0.1/AxonIvyEngine6.0.1.50844_Linux_x64.zip
-RUN sudo unzip AxonIvyEngine6.0.1.50844_Linux_x64.zip -d /opt/AxonIvyEngine6
-RUN sudo rm -f AxonIvyEngine6.0.1.50844_Linux_x64.zip
+RUN sudo wget http://download.axonivy.com/6.1.0/AxonIvyEngine6.1.0.51350_Linux_x64.zip && \
+    sudo unzip AxonIvyEngine6.1.0.51350_Linux_x64.zip -d /opt/AxonIvyEngine6 && \
+    sudo rm -f AxonIvyEngine6.1.0.51350_Linux_x64.zip
 
 COPY start-axonivy-engine.sh /usr/local/bin/start-axonivy-engine.sh
 RUN chmod +x /usr/local/bin/*.sh
