@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /opt/AxonIvyEngine6
+cd /opt/AxonIvyEngine7
 
 # Build the database config
 [ -z "$AXONIVY_SERVER_DB_URL" ] && export AXONIVY_SERVER_DB_URL=jdbc:postgresql://${DB_PORT_5432_TCP_ADDR}:${DB_PORT_5432_TCP_PORT}/AxonIvySystemDatabase
@@ -23,4 +23,4 @@ if [ $(find /data -maxdepth 1 -type f -name '*.lic' -not -name ".*" | wc -l) -eq
 		ch.ivyteam.ivy.server.configuration.ServerConfigurationTool -createAdmin AxonIvy AxonIvy;
 fi
 
-bin/AxonIvyEngine.sh
+bin/AxonIvyEngine
