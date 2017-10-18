@@ -7,8 +7,7 @@ RUN apt-get update && \
     wget \
     curl \
     unzip \
-    default-jre\
-    dos2unix
+    default-jre
 
 # Download and extract Axon.ivy Engine
 RUN wget http://download.axonivy.com/7.0.0/AxonIvyEngine7.0.0.55921_All_x64.zip -O AxonIvyEngine7.zip && \
@@ -18,10 +17,6 @@ RUN wget http://download.axonivy.com/7.0.0/AxonIvyEngine7.0.0.55921_All_x64.zip 
     chown -R axonivy:axonivy /opt/AxonIvyEngine7
 
 COPY start-axonivy-engine.sh /usr/local/bin/start-axonivy-engine.sh
-
-# Convert line ending from windows style to unix
-# since if you build the image on Windows and then execute, unix wont be able to find the sh file
-RUN dos2unix /usr/local/bin/start-axonivy-engine.sh
 
 # Fix for issue #25527. Remove as soon as fixed.
 # RUN sed -i 's/\-djava\.awt\.headless=true/-Djava.awt.headless=true/g' /opt/AxonIvyEngine7/bin/AxonIvyEngine.conf
