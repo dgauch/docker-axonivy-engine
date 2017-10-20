@@ -1,24 +1,25 @@
 FROM ubuntu:16.04
-MAINTAINER Daniel Gauch <daniel@gauch.biz>
+LABEL maintainer="Daniel Gauch <daniel@gauch.biz>"
 
-# Install wget and unzip 
-RUN apt-get update
-RUN apt-get install -y wget
-RUN apt-get install -y unzip 
+# Install wget, unzip and jre since the downloaded engine does not include jre
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    wget \
+    curl \
+    unzip \
+    default-jre
 
 # Download and extract Axon.ivy Engine
-RUN wget http://download.axonivy.com/6.4.0/AxonIvyEngine6.4.0.52683_Linux_x64.zip -O AxonIvyEngine6.zip && \
-    unzip AxonIvyEngine6.zip -d /opt/AxonIvyEngine6 && \
-    rm -f AxonIvyEngine6.zip && \
+RUN wget https://download.axonivy.com/7.0.1/AxonIvyEngine7.0.1.56047_All_x64.zip -O AxonIvyEngine7.zip && \
+    unzip AxonIvyEngine7.zip -d /opt/AxonIvyEngine7 && \
+    rm -f AxonIvyEngine7.zip && \
     useradd -s /sbin/nologin axonivy && \
-	chown -R axonivy:axonivy /opt/AxonIvyEngine6 && \
-	chown -R axonivy:axonivy /opt/AxonIvyEngine6/
+    chown -R axonivy:axonivy /opt/AxonIvyEngine7
 
 COPY start-axonivy-engine.sh /usr/local/bin/start-axonivy-engine.sh
-RUN chmod +x /usr/local/bin/*.sh
 
 # Fix for issue #25527. Remove as soon as fixed.
-RUN sed -i 's/\-djava\.awt\.headless=true/-Djava.awt.headless=true/g' /opt/AxonIvyEngine6/bin/AxonIvyEngine.conf
+# RUN sed -i 's/\-djava\.awt\.headless=true/-Djava.awt.headless=true/g' /opt/AxonIvyEngine7/bin/AxonIvyEngine.conf
 
 USER axonivy
 
@@ -26,4 +27,4 @@ VOLUME /data
 
 EXPOSE 8081
 
-CMD start-axonivy-engine.sh
+ENTRYPOINT [ "start-axonivy-engine.sh" ]

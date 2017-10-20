@@ -19,7 +19,7 @@ To run the Axon.ivy engine in demo mode, just fire this command:
 
 	docker run -it --rm -p 8081:8081 dgauch/axonivy-engine
 	
-This will run the container showing the console and finally remove the container (`--rm`) after you stop it with `Ctrl-c`. After startup finished, access the server page at `http://{dockerhost}:8081/ivy`. On a Linux host, that's usually http://127.0.0.1:8081/ivy. Under Mac OS, you usually end up with http://192.168.59.103:8081/ivy.
+This will run the container showing the console and finally remove the container (`--rm`) after you stop it with `Ctrl-c`. After startup finished, access the server page at `http://{dockerhost}:8081/ivy`. That's usually http://127.0.0.1:8081/ivy.
 
 If you want to run the service in non-demo mode, you have to provide a database for the Axon.ivy system database, as well as a valid license. To run a suitable postgres container, you may execute:
 
