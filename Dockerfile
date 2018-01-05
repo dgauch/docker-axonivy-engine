@@ -10,16 +10,13 @@ RUN apt-get update && \
     default-jre
 
 # Download and extract Axon.ivy Engine
-RUN wget https://download.axonivy.com/7.0.1/AxonIvyEngine7.0.1.56047_All_x64.zip -O AxonIvyEngine7.zip && \
+RUN wget https://download.axonivy.com/7.0.2/AxonIvyEngine7.0.2.56709_All_x64.zip -O AxonIvyEngine7.zip && \
     unzip AxonIvyEngine7.zip -d /opt/AxonIvyEngine7 && \
     rm -f AxonIvyEngine7.zip && \
     useradd -s /sbin/nologin axonivy && \
     chown -R axonivy:axonivy /opt/AxonIvyEngine7
 
 COPY start-axonivy-engine.sh /usr/local/bin/start-axonivy-engine.sh
-
-# Fix for issue #25527. Remove as soon as fixed.
-# RUN sed -i 's/\-djava\.awt\.headless=true/-Djava.awt.headless=true/g' /opt/AxonIvyEngine7/bin/AxonIvyEngine.conf
 
 USER axonivy
 
