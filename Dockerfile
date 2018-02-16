@@ -10,7 +10,7 @@ RUN apt-get update && \
     default-jre
 
 # Download and extract Axon.ivy Engine
-RUN wget https://download.axonivy.com/7.0.2/AxonIvyEngine7.0.2.56709_All_x64.zip -O AxonIvyEngine7.zip && \
+RUN wget https://download.axonivy.com/7.0.3/AxonIvyEngine7.0.3.57252_All_x64.zip -O AxonIvyEngine7.zip && \
     unzip AxonIvyEngine7.zip -d /opt/AxonIvyEngine7 && \
     rm -f AxonIvyEngine7.zip && \
     useradd -s /sbin/nologin axonivy && \
