@@ -1,30 +1,29 @@
-FROM ubuntu:16.04
+FROM openjdk:jre-alpine
 LABEL maintainer="Daniel Gauch <daniel@gauch.biz>"
 
 # Install wget, unzip and jre since the downloaded engine does not include jre
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    wget \
-    curl \
-    unzip \
-    default-jre
+RUN apk update && \
+    apk add --no-cache wget curl unzip shadow coreutils sudo
+
+RUN adduser -h /home/ivy -s /bin/sh -D ivy ivy \
+    && echo "ivy ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER ivy
+WORKDIR /home/ivy
 
 # Download and extract Axon.ivy Engine
-RUN wget https://developer.axonivy.com/download/stable/Engine-All-x64.zip -O AxonIvyEngine.zip && \
-    unzip AxonIvyEngine.zip -d /opt/AxonIvyEngine && \
-    rm -f AxonIvyEngine.zip && \
-    useradd -s /sbin/nologin axonivy && \
-    chown -R axonivy:axonivy /opt/AxonIvyEngine
+RUN wget https://developer.axonivy.com/permalink/ivy/stable/AxonIvyEngine-latest_All_x64.zip -O AxonIvyEngine.zip && \
+    unzip AxonIvyEngine.zip -d /home/ivy/AxonIvyEngine && \
+    rm -f AxonIvyEngine.zip
 
-COPY start-axonivy-engine.sh /usr/local/bin/start-axonivy-engine.sh
+RUN chown -R ivy:ivy /home/ivy/AxonIvyEngine
 
-# Fix for issue #25527. Remove as soon as fixed.
-# RUN sed -i 's/\-djava\.awt\.headless=true/-Djava.awt.headless=true/g' /opt/AxonIvyEngine/bin/AxonIvyEngine.conf
+COPY start-axonivy-engine.sh /home/ivy/start-axonivy-engine.sh
 
-USER axonivy
+RUN ["sudo",  "chmod", "+x", "/home/ivy/start-axonivy-engine.sh"]
 
 VOLUME /data
 
 EXPOSE 8081
 
-ENTRYPOINT [ "start-axonivy-engine.sh" ]
+ENTRYPOINT [ "/home/ivy/start-axonivy-engine.sh" ]
