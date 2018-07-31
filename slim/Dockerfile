@@ -12,7 +12,7 @@ USER ivy
 WORKDIR /home/ivy
 
 # Download and extract Axon.ivy Engine
-RUN wget https://download.axonivy.com/7.0.6/AxonIvyEngine7.0.6.59030_All_x64.zip -O AxonIvyEngine.zip && \
+RUN wget https://download.axonivy.com/7.0.6/AxonIvyEngine7.0.6.59030_Slim_All_x64.zip -O AxonIvyEngine.zip && \
     unzip AxonIvyEngine.zip -d /home/ivy/AxonIvyEngine && \
     rm -f AxonIvyEngine.zip
 
